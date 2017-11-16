@@ -28,7 +28,7 @@
  */
 package eu.rafaelaznar.connection;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+//import com.mchange.v2.c3p0.ComboPooledDataSource;
 import eu.rafaelaznar.helper.ConnectionClassHelper;
 import eu.rafaelaznar.helper.Log4jConfigurationHelper;
 import java.beans.PropertyVetoException;
@@ -37,20 +37,21 @@ import java.sql.SQLException;
 
 public class C3POConnection implements ConnectionInterface {
 
-    private ComboPooledDataSource connectionPool = null;
+//    private ComboPooledDataSource connectionPool = null;
     private Connection oConnection = null;
 
     @Override
     public Connection newConnection() throws Exception {
         try {
-            connectionPool = new ComboPooledDataSource();
-            connectionPool.setDriverClass("com.mysql.jdbc.Driver");
-            connectionPool.setJdbcUrl(ConnectionClassHelper.getConnectionChain());
-            connectionPool.setUser(ConnectionClassHelper.getDatabaseLogin());
-            connectionPool.setPassword(ConnectionClassHelper.getDatabasePassword());
-            connectionPool.setMaxStatements(180);
-            oConnection = connectionPool.getConnection();
-        } catch (PropertyVetoException | SQLException ex) {
+//            connectionPool = new ComboPooledDataSource();
+//            connectionPool.setDriverClass("com.mysql.jdbc.Driver");
+//            connectionPool.setJdbcUrl(ConnectionClassHelper.getConnectionChain());
+//            connectionPool.setUser(ConnectionClassHelper.getDatabaseLogin());
+//            connectionPool.setPassword(ConnectionClassHelper.getDatabasePassword());
+//            connectionPool.setMaxStatements(180);
+//            oConnection = connectionPool.getConnection();
+//        } catch (PropertyVetoException | SQLException ex) {
+             } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
@@ -64,9 +65,9 @@ public class C3POConnection implements ConnectionInterface {
             if (oConnection != null) {
                 oConnection.close();
             }
-            if (connectionPool != null) {
-                connectionPool.close();
-            }
+//            if (connectionPool != null) {
+//                connectionPool.close();
+//            }
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4jConfigurationHelper.errorLog(msg, ex);

@@ -54,7 +54,7 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
     public ProductoSpecificBeanImplementation(Integer id) {
         super(id);
     }
-        
+
     public Integer getId() {
         return id;
     }
@@ -108,7 +108,7 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
     @Override
     public String getValues() {
         String strColumns = "";
-        strColumns += id + ",";        
+        strColumns += id + ",";
         strColumns += EncodingUtilHelper.quotate(codigo) + ",";
         strColumns += EncodingUtilHelper.quotate(descripcion) + ",";
         strColumns += existencias + ",";
@@ -128,6 +128,7 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
 
     @Override
     public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
+        this.setId(oResultSet.getInt("id"));
         this.setCodigo(oResultSet.getString("codigo"));
         this.setDescripcion(oResultSet.getString("descripcion"));
         this.setExistencias(oResultSet.getInt("existencias"));
