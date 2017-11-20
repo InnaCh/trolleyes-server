@@ -158,26 +158,11 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
         this.obj_tipousuario = obj_tipousuario;
     }
 
-    @Override
-    public String getColumns() {
-        String strColumns = "";
-        strColumns += "id,";
-        strColumns += "dni,";
-        strColumns += "nombre,";
-        strColumns += "primer_apellido,";
-        strColumns += "segundo_apellido,";
-        strColumns += "password,";
-        strColumns += "login,";
-        strColumns += "email,";
-        strColumns += "fecha_nacimiento,";
-        strColumns += "id_tipousuario";
-        return strColumns;
-    }
+    
 
     @Override
     public String getValues() {
         String strColumns = "";
-        strColumns += id + ",";
         strColumns += EncodingUtilHelper.quotate(dni) + ",";
         strColumns += EncodingUtilHelper.quotate(nombre) + ",";
         strColumns += EncodingUtilHelper.quotate(primer_apellido) + ",";
