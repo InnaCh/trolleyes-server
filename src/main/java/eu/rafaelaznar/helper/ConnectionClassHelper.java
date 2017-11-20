@@ -39,7 +39,7 @@ public class ConnectionClassHelper {
     }
 
     public static String getDatabasePassword() {
-        return "bitnami";
+        return "225524";
     }
 
     public static String getDatabasePort() {
@@ -47,7 +47,7 @@ public class ConnectionClassHelper {
     }
 
     public static String getDatabaseIP() {
-        return "127.0.0.1";
+        return "localhost";
     }
 
     public static String getConnectionChain() {

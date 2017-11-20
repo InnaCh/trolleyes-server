@@ -1,23 +1,23 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
- * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ *
+ * trolleyes-server: Helps you to develop easily AJAX web applications
  *               by copying and modifying this Java Server.
  *
  * Sources at https://github.com/rafaelaznar/trolleyes-server
- * 
+ *
  * trolleyes-server is distributed under the MIT License (MIT)
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,6 +29,7 @@
 package eu.rafaelaznar.helper;
 
 import eu.rafaelaznar.bean.ReplyBean;
+import eu.rafaelaznar.service.specificimplementation.CarritoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.LineadepedidoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.PedidoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.ProductoSpecificServiceImplementation;
@@ -139,6 +140,7 @@ public class MappingServiceHelper {
                         oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
                 }
+                break;
             case "producto":
                 ProductoSpecificServiceImplementation oProductoService = new ProductoSpecificServiceImplementation(oRequest);
                 switch (op) {
@@ -194,6 +196,29 @@ public class MappingServiceHelper {
                         break;
                     default:
                         oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+            case "carrito":
+                CarritoSpecificServiceImplementation oCarritoService = new CarritoSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "add":
+                        oReplyBean = oCarritoService.add();
+                        break;
+                    case "remove":
+                        oReplyBean = oCarritoService.remove();
+                        break;
+                    case "list":
+                        oReplyBean = oCarritoService.list();
+                        break;
+                    case "buy":
+                        oReplyBean = oCarritoService.buy();
+                        break;
+                    case "empty":
+                        oReplyBean = oCarritoService.empty();
+                        break;
+                    case "count":
+                        oReplyBean = oCarritoService.count();
                         break;
                 }
                 break;
