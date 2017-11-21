@@ -30,8 +30,10 @@ package eu.rafaelaznar.bean.genericimplementation;
 
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
+import eu.rafaelaznar.helper.EncodingUtilHelper;
 import eu.rafaelaznar.helper.Log4jConfigurationHelper;
 import java.lang.reflect.Field;
+import java.util.Date;
 
 public abstract class TableGenericBeanImplementation extends ViewGenericBeanImplementation implements GenericBeanInterface {
 
@@ -55,7 +57,7 @@ public abstract class TableGenericBeanImplementation extends ViewGenericBeanImpl
     }
 
     @Override
-   public String getColumns() throws Exception {
+    public String getColumns() throws Exception {
         String strColumns = "";
         try {
             TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) Class.forName(this.getClass().getName()).newInstance();
@@ -73,21 +75,69 @@ public abstract class TableGenericBeanImplementation extends ViewGenericBeanImpl
         }
         return strColumns;
     }
+
     @Override
     public String getValues() throws Exception {
-//        String strColumns = "";
-//        try {
-//            TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) Class.forName(this.getClass().getName()).newInstance();
-//        Object oValues = oBean.getClass().getField(strColumns);
-//          for (Object obj : oValues) {
-//              
-//          }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String strColumns = "";
+        try {
+            TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) Class.forName(this.getClass().getName()).newInstance();
+            Field[] oFields = oBean.getClass().getDeclaredFields();
+            for (Field oField : oFields) {
+                oField.setAccessible(true);
+                if (!oField.getName().startsWith("obj_")) {
+                    if (oField.getName().equals("password")) {
+                        strColumns += EncodingUtilHelper.quotate("da8ab09ab4889c6208116a675cad0b13e335943bd7fc418782d054b32fdfba04") + ",";
+                    } else {
+                        if (oField.getType() == String.class) {
+                            strColumns += EncodingUtilHelper.quotate((String) oField.get(this)) + ",";
+                        } else {
+                            if (oField.getType() == Date.class) {
+                                strColumns += EncodingUtilHelper.stringifyAndQuotate((Date) oField.get(this)) + ",";
+                            } else {
+                                if (oField.getType() == Integer.class) {
+                                    strColumns += (Integer) oField.get(this) + ",";
+                                } else {
+                                    if (oField.getType() == Double.class) {
+                                        strColumns += (Double) oField.get(this) + ",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                oField.setAccessible(false);
+            }
+            if (!strColumns.equals("")) {
+                strColumns = strColumns.substring(0, strColumns.length() - 1);
+            }
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4jConfigurationHelper.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        }
+        return strColumns;
     }
 
     @Override
-    public String toPairs() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String toPairs() throws Exception {
+        String strPairs = "";
+//        try {
+//            TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) Class.forName(this.getClass().getName()).newInstance();
+//            Field[] oFields = oBean.getClass().getDeclaredFields();
+//            for (Field oField : oFields) {
+//                oField.setAccessible(true);
+//                if (!oField.getName().startsWith("obj_")) {
+//                    strPairs += oField.getName() + ",";
+//                }
+//            }
+//            strPairs = strPairs.substring(0, strPairs.length() - 1);
+//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+//            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+//            Log4jConfigurationHelper.errorLog(msg, ex);
+//            throw new Exception(msg, ex);
+//        }
+        return strPairs;
     }
-
 }
+
+

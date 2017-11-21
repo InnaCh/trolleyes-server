@@ -60,13 +60,6 @@ public class TipousuarioSpecificBeanImplementation extends TableGenericBeanImple
  
 
     @Override
-    public String getValues() {
-        String strColumns = "";
-        strColumns += EncodingUtilHelper.quotate(descripcion);
-        return strColumns;
-    }
-
-    @Override
     public String toPairs() {
         String strPairs = "";
         strPairs += "descripcion=" + EncodingUtilHelper.quotate(descripcion);

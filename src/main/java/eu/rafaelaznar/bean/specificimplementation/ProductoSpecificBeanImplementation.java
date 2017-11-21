@@ -98,16 +98,6 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
    
 
     @Override
-    public String getValues() {
-        String strColumns = "";
-        strColumns += EncodingUtilHelper.quotate(codigo) + ",";
-        strColumns += EncodingUtilHelper.quotate(descripcion) + ",";
-        strColumns += existencias + ",";
-        strColumns += precio;
-        return strColumns;
-    }
-
-    @Override
     public String toPairs() {
         String strPairs = "";
         strPairs += "codigo=" + EncodingUtilHelper.quotate(codigo) + ",";

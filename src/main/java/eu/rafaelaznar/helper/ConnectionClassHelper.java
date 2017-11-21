@@ -39,7 +39,7 @@ public class ConnectionClassHelper {
     }
 
     public static String getDatabasePassword() {
-        return "225524";
+        return "bitnami";
     }
 
     public static String getDatabasePort() {
